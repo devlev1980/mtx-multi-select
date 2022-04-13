@@ -8,102 +8,143 @@ import {FormControl} from '@angular/forms';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'multi-select';
-  options: Array<Option>   = [];
+  options: Array<Option> = [];
   config?: Config | undefined;
   input: FormControl = new FormControl('')
 
   ngOnInit() {
     this.options = [
       {
-        text:'Ankara',
-        selected: false
+        primaryKey: 0,
+        text: 'Ankara',
+        selected: false,
+        children: [
+          {
+            primaryKey: 0,
+            text: 'Australia',
+            selected: false
+          },
+          {
+            primaryKey: 0,
+            text: 'Australia',
+            selected: false
+          },
+          {
+            primaryKey: 0,
+            text: 'Australia',
+            selected: false
+          }
+        ]
       },
       {
-        text:'Abuja',
+        primaryKey: 1,
+        text: 'Abuja',
         selected: false
       }, {
-        text:'Kuala Lumpur',
+        primaryKey: 2,
+        text: 'Kuala Lumpur',
         selected: false
       },
       {
-        text:'Sydney',
+        primaryKey: 3,
+        text: 'Sydney',
         selected: false
       },
       {
-        text:'Dubai',
+        primaryKey: 4,
+        text: 'Dubai',
         selected: false
       },
       {
-        text:'Kyoto',
+        primaryKey: 5,
+        text: 'Kyoto',
         selected: false
       }, {
-        text:'Harbin',
+        primaryKey: 6,
+        text: 'Harbin',
         selected: false
       },
       {
-        text:'Jinan',
+        primaryKey: 7,
+        text: 'Jinan',
         selected: false
       },
       {
-        text:'Bhopal',
+        primaryKey: 8,
+        text: 'Bhopal',
         selected: false
       },
       {
-        text:'Manila',
+        primaryKey: 9,
+        text: 'Manila',
         selected: false
       }, {
-        text:'Abidjan',
+        primaryKey: 10,
+        text: 'Abidjan',
         selected: false
       },
       {
-        text:'Montevideo',
+        primaryKey: 11,
+        text: 'Montevideo',
         selected: false
       },
       {
-        text:'Jaipur',
+        primaryKey: 12,
+        text: 'Jaipur',
         selected: false
       },
       {
-        text:'Tokyo',
+        primaryKey: 13,
+        text: 'Tokyo',
         selected: false
       }, {
-        text:'Curitiba',
+        primaryKey: 14,
+        text: 'Curitiba',
         selected: false
       },
       {
-        text:'Oran',
+        primaryKey: 15,
+        text: 'Oran',
         selected: false
       },
       {
-        text:'Hyderabad',
+        primaryKey: 16,
+        text: 'Hyderabad',
         selected: false
       },
       {
-        text:'Hamburg',
+        primaryKey: 17,
+        text: 'Hamburg',
         selected: false
       }, {
-        text:'Birmingham',
+        primaryKey: 18,
+        text: 'Birmingham',
         selected: false
       },
       {
-        text:'Beijing',
+        primaryKey: 19,
+        text: 'Beijing',
         selected: false
       },
       {
-        text:'Mandalay',
+        primaryKey: 20,
+        text: 'Mandalay',
         selected: false
       },
       {
-        text:'Faisalabad',
+        primaryKey: 21,
+        text: 'Faisalabad',
         selected: false
       }, {
-        text:'Ho Chi Minh City',
+        primaryKey: 22,
+        text: 'Ho Chi Minh City',
         selected: false
       },
       {
-        text:'Hamburg',
+        primaryKey: 23,
+        text: 'Hamburg',
         selected: false
       },
     ];
@@ -115,13 +156,13 @@ export class AppComponent implements OnInit{
       clearValuesButton: 'ניקוי בחירה',
 
     }
-    this.input.valueChanges.subscribe(res=>{
-      console.log('result',res)
+    this.input.valueChanges.subscribe(res => {
+      console.log('result', res)
     })
   }
 
   onSelect(options: Option[]) {
-    console.log('option',options)
+    console.log('option', options)
   }
 
   onSelectItem(option: Option) {

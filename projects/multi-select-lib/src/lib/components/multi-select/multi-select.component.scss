@@ -78,16 +78,24 @@ $inputBorderColor: #c2c2c2;
     border-radius: 0 0 5px 5px;
     max-height: 525px;
 
+    &.hasChildren{
+      margin-block-start: 7px;
+    }
+
     .content {
       max-height: 404px;
       overflow-y: auto;
     }
 
     li {
-      display: flex;
-      align-items: start;
-      padding: 10px 20px;
+      display: block;
+      //align-items: start;
+      padding: 13px 20px;
       position: relative;
+
+      &.children{
+        padding: 10px 30px;
+      }
 
       label {
         width: 100%;
