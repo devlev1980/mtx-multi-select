@@ -11,6 +11,17 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
+    "paths": {
+      "multi-select-lib": [
+        "dist/multi-select-lib/multi-select-lib",
+        "dist/multi-select-lib"
+      ]
+    },
+    "typeRoots": [ "../node_modules/@types" ],
+    "types": [
+      "node"
+    ],
+
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
