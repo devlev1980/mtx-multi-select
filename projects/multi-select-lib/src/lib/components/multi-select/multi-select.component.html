@@ -17,8 +17,12 @@
       <ng-container *ngIf="options">
         <li *ngFor="let option of options   ;let i= index">
           <label [for]="'checkbox_' + i">
-            <input type="checkbox" [checked]="option.selected || parentToCheck ? parentToCheck![option.primaryKey] : false"  #inputRef [id]="'checkbox_' + i"
-                   (change)="onCheck(option)">
+<!--            <input type="checkbox" [checked]="option.selected || parentToCheck ? parentToCheck![option.primaryKey] : option.selected"  #inputRef [id]="'checkbox_' + i"-->
+<!--                   (change)="onCheckParentParent(option)">-->
+
+            <input type="checkbox" [checked]="option?.selected"  #inputRef [id]="'checkbox_' + i"
+                   (change)="onCheckParent(option)">
+
             <span class="checkmark"></span>
           </label>
           <span class="text">{{option.text}}</span>
@@ -26,8 +30,8 @@
           <ul *ngIf="option.children" class="multi_select_dropdown hasChildren">
             <li *ngFor="let child of option.children;let j = index" class="children">
               <label [for]="'checkbox_child' + j+1">
-                <input type="checkbox" [checked]="option.selected" #inputRef [id]="'checkbox_child' + j+1"
-                       (change)="onCheckChild(child)">
+                <input type="checkbox" [checked]="option?.selected" #inputRef [id]="'checkbox_child' + j+1"
+                       (change)="onCheckParent(child)">
                 <span class="checkmark"></span>
               </label>
               <span class="text">{{child.text}}</span>

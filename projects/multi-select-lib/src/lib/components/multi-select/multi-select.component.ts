@@ -19,32 +19,35 @@ import {Option} from './models/option.model';
     }
   ]
 })
-export class MultiSelectComponent implements OnInit,ControlValueAccessor {
+export class MultiSelectComponent implements OnInit, ControlValueAccessor {
   @Input() options: Array<Option> | undefined;
   @Input() config: Config | undefined;
   isShowMultiSelect: boolean = false;
   isFloatLabel: boolean = false;
   selectedArray: Option[] = [];
-  selectedChildArray: Option[] = []
   @Output() addSelectedOptions: EventEmitter<Option[]> = new EventEmitter<Option[]>();
   @Output() selectChange: EventEmitter<Option> = new EventEmitter<Option>();
-  countSelectedItems!: number;
+  countSelectedItems!: number | undefined;
+  childrenSelectedCount: number = 0;
   selectedOption: string = '';
   @ViewChild('dropdown') dropdownRef!: ElementRef;
+  @ViewChild('inputRef') checkboxRef!: ElementRef;
+  selectedChildren: Option[] | undefined = [];
   $event: any;
-  change = (value: any)=>{};
-  touched = (value: any)=>{}
-  input: FormControl  = new FormControl('')
+  change = (value: any) => {
+  };
+  touched = (value: any) => {
+  }
+  input: FormControl = new FormControl('')
   parentToCheck!: Array<Option> | undefined;
-  constructor(private elemRef: ElementRef ) {
+
+  constructor(private elemRef: ElementRef) {
   }
 
 
   ngOnInit(): void {
-    this.input.valueChanges.subscribe(value=>this.change(value));
-    // this.multiSelectForm = this.fb.group({
-    //   input: ['']
-    // });
+    this.input.valueChanges.subscribe(value => this.change(this.selectedArray));
+
   }
 
   onClickOutside(event: any) {
@@ -60,19 +63,33 @@ export class MultiSelectComponent implements OnInit,ControlValueAccessor {
     this.isFloatLabel = true;
   }
 
-  onCheck(option: Option) {
+  onCheckParent(option: Option) {
     option.selected = !option.selected;
-    if (option.selected) {
-      this.selectedArray.push(option);
-      this.countSelectedItems = this.selectedArray.length;
+    if (option.selected && this.selectedArray.indexOf(option) === -1) {
+      this.selectedArray?.push(option);
+      this.selectedArray.forEach((option) => {
+        if (option.children) {
+          this.selectedChildren = option.children.map((child) => {
+            child.selected = true;
+            return child;
+          })
+        } else {
+          this.selectedChildren = [];
+        }
+      });
     } else {
-      this.selectedArray = this.selectedArray.filter((el) => el.selected !== option.selected);
-
-      this.countSelectedItems = this.selectedArray.length;
+      this.selectedArray = this.selectedArray.filter((el) => el.selected !== option.selected )
     }
     this.selectedOption = this.selectedArray.map((el) => el.text).join(',');
     this.input?.patchValue(this.selectedOption);
+    this.calculateSelectedNumbers(this.selectedArray)
+  }
 
+
+
+  private calculateSelectedNumbers(selectedArray: Option[]) {
+    console.log('selectedArray',selectedArray)
+    this.countSelectedItems = this.selectedArray.length
   }
 
   onAddSelectedOption() {
@@ -86,9 +103,14 @@ export class MultiSelectComponent implements OnInit,ControlValueAccessor {
       el.selected = false;
       return el
     });
-    this.countSelectedItems = this.selectedArray.filter((option) => {
-      !option.selected;
-    }).length;
+    // this.countSelectedItems = this.selectedArray.filter((option) => {
+    //   !option.selected ;
+    //   option.children?.map((el)=> {
+    //     if(el.selected){
+    //        el.selected = false
+    //     }
+    //   })
+    // }).length;
     this.selectedArray = [];
     this.input.patchValue('');
   }
@@ -96,38 +118,26 @@ export class MultiSelectComponent implements OnInit,ControlValueAccessor {
 
   registerOnChange(fn: any) {
     this.change = fn;
-    this.input.patchValue(this.selectedArray);
   }
+
   writeValue(obj: any) {
-    if(obj){
+    if (obj) {
       this.input.patchValue(this.selectedArray);
-    }else{
+    } else {
       this.input.reset();
     }
 
   }
+
   registerOnTouched(fn: any) {
     this.touched = fn;
     this.input.valueChanges.subscribe(fn);
   }
+
   setDisabledState(isDisabled: boolean) {
   }
 
-  onCheckChild(child: Option) {
-    child.selected = !child.selected;
-    if (child.selected) {
-      this.selectedChildArray.push(child);
-      this.countSelectedItems = this.selectedChildArray.length;
-    } else {
-      this.selectedChildArray = this.selectedChildArray.filter((el) => el.selected !== child.selected);
 
-      this.countSelectedItems = this.selectedChildArray.length;
-    }
-    this.selectedOption = this.selectedChildArray.map((el) => el.text).join(',');
-    debugger
-    this.parentToCheck = this.options?.filter((el)=> el?.primaryKey === child.primaryKey)
-    this.input?.patchValue(this.selectedOption);
-  }
 }
 
 
