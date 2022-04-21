@@ -1,5 +1,5 @@
 export interface Option {
-  primaryKey: number,
+  id: number,
   text: string;
   selected: boolean;
   iconSrc?: string;

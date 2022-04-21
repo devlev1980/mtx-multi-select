@@ -4,24 +4,31 @@ import {CommonModule} from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {ReactiveFormsModule} from '@angular/forms';
-import { SearchPipe } from './components/pipes/search.pipe';
-import { MultiSelectControlComponent } from './components/multi-select-control/multi-select-control.component';
+import {MultiSelectTreeComponent} from './components/multi-select-tree/multi-select-tree.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTreeModule} from '@angular/material/tree';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+
 
 
 @NgModule({
   declarations: [
-    MultiSelectComponent,
-    SearchPipe,
-    MultiSelectControlComponent,
+    MultiSelectTreeComponent
   ],
   imports: [
     CommonModule,
     MatButtonModule,
     MatCheckboxModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule,
+    MatTreeModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule
   ],
   exports: [
-    MultiSelectComponent,
+    MultiSelectTreeComponent,
 
   ]
 })

@@ -17,133 +17,150 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.options = [
       {
-        primaryKey: 0,
+        id: 0,
         text: 'Ankara',
         selected: false,
         children: [
           {
-            primaryKey: 0,
+            id: 1,
             text: 'Australia',
             selected: false
           },
           {
-            primaryKey: 0,
+            id: 2,
             text: 'Australia',
             selected: false
           },
           {
-            primaryKey: 0,
+            id: 3,
             text: 'Australia',
             selected: false
           }
         ]
       },
       {
-        primaryKey: 1,
+        id: 1,
         text: 'Abuja',
         selected: false
       }, {
-        primaryKey: 2,
+        id: 2,
         text: 'Kuala Lumpur',
-        selected: false
+        selected: false,
+        children: [
+          {
+            id: 4,
+            text: 'Berlin-1',
+            selected: false
+          },
+          {
+            id: 5,
+            text: 'Berlin-2',
+            selected: false
+          },
+          {
+            id: 6,
+            text: 'Berlin-3',
+            selected: false
+          }
+        ]
       },
       {
-        primaryKey: 3,
+        id: 3,
         text: 'Sydney',
         selected: false
       },
       {
-        primaryKey: 4,
+        id: 4,
         text: 'Dubai',
         selected: false
       },
       {
-        primaryKey: 5,
+        id: 5,
         text: 'Kyoto',
         selected: false
       }, {
-        primaryKey: 6,
+        id: 6,
         text: 'Harbin',
         selected: false
       },
       {
-        primaryKey: 7,
+        id: 7,
         text: 'Jinan',
         selected: false
       },
       {
-        primaryKey: 8,
+        id: 8,
         text: 'Bhopal',
         selected: false
       },
       {
-        primaryKey: 9,
+        id: 9,
         text: 'Manila',
         selected: false
       }, {
-        primaryKey: 10,
+        id: 10,
         text: 'Abidjan',
         selected: false
       },
       {
-        primaryKey: 11,
+        id: 11,
         text: 'Montevideo',
         selected: false
       },
       {
-        primaryKey: 12,
+        id: 12,
         text: 'Jaipur',
         selected: false
       },
       {
-        primaryKey: 13,
+        id: 13,
         text: 'Tokyo',
         selected: false
       }, {
-        primaryKey: 14,
+        id: 14,
         text: 'Curitiba',
         selected: false
       },
       {
-        primaryKey: 15,
+        id: 15,
         text: 'Oran',
         selected: false
       },
       {
-        primaryKey: 16,
+        id: 16,
         text: 'Hyderabad',
         selected: false
       },
       {
-        primaryKey: 17,
+        id: 17,
         text: 'Hamburg',
         selected: false
       }, {
-        primaryKey: 18,
+        id: 18,
         text: 'Birmingham',
         selected: false
       },
       {
-        primaryKey: 19,
+        id: 19,
         text: 'Beijing',
         selected: false
       },
       {
-        primaryKey: 20,
+        id: 20,
         text: 'Mandalay',
         selected: false
       },
       {
-        primaryKey: 21,
+        id: 21,
         text: 'Faisalabad',
         selected: false
       }, {
-        primaryKey: 22,
+        id: 22,
         text: 'Ho Chi Minh City',
         selected: false
       },
       {
-        primaryKey: 23,
+        id: 23,
         text: 'Hamburg',
         selected: false
       },

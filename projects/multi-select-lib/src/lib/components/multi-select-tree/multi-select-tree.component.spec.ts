@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MultiSelectControlComponent } from './multi-select-control.component';
+import { MultiSelectTreeComponent } from './multi-select-tree.component';
 
-describe('MultiSelectControlComponent', () => {
-  let component: MultiSelectControlComponent;
-  let fixture: ComponentFixture<MultiSelectControlComponent>;
+describe('MultiSelectTreeComponent', () => {
+  let component: MultiSelectTreeComponent;
+  let fixture: ComponentFixture<MultiSelectTreeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MultiSelectControlComponent ]
+      declarations: [ MultiSelectTreeComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MultiSelectControlComponent);
+    fixture = TestBed.createComponent(MultiSelectTreeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
