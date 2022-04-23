@@ -12,7 +12,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     imports: [
         BrowserAnimationsModule,
         MultiSelectLibModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
     ],
   providers: [],
   bootstrap: [AppComponent]

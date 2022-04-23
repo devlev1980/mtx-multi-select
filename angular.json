@@ -134,6 +134,7 @@
             ],
             "styles": [
               "projects/multi-select/src/styles.scss"
+
             ],
             "scripts": []
           }
