@@ -14,7 +14,7 @@
   <ul class="multi_select_dropdown" *ngIf="isShowMultiSelect">
     <div class="content">
       <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-        <mat-tree-node *matTreeNodeDef="let node"  matTreeNodePadding>
+        <mat-tree-node *matTreeNodeDef="let node"  matTreeNodePadding >
           <button mat-icon-button disabled></button>
           <mat-checkbox class="checklist-leaf-node"
                         [checked]="checklistSelection.isSelected(node)"
@@ -39,7 +39,7 @@
           <mat-checkbox [checked]="descendantsAllSelected(node)"
                         class="checklist-leaf-node-child "
                         [indeterminate]="descendantsPartiallySelected(node)"
-                        (change)="todoItemSelectionToggle(node)" (indeterminateChange)="onChange(node)">{{node.item}}</mat-checkbox>
+                        (change)="todoItemSelectionToggle(node)">{{node.item}}</mat-checkbox>
           <!--          <button ><mat-icon>add</mat-icon></button>-->
         </mat-tree-node>
       </mat-tree>
@@ -49,7 +49,7 @@
 
 
     <div class="footer">
-      <span class="selected_count" *ngIf="countSelectedItems">{{countSelectedItems}} {{config?.selectedText}} </span>
+      <span class="selected_count" *ngIf="this.checklistSelection.selected.length">{{this.checklistSelection.selected.length}} {{config?.selectedText}} </span>
       <div class="actions">
         <!--        <button mat-raised-button class="primary"  (click)="onAddSelectedOption()" [disabled]="selectedArray?.length === 0">{{config?.addButton}}</button>-->
         <button mat-raised-button class="accent" (click)="onClearValues()">{{config?.clearValuesButton}}</button>

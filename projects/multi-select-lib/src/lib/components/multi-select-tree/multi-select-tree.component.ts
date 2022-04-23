@@ -28,63 +28,6 @@ export class ItemFlatNode {
   expandable: boolean = false;
 }
 
-
-
-const TREE_DATA: ItemNode[] = [
-  {
-    name: 'Fruit',
-    children: [
-      {
-        name: 'Apple'
-      },
-      {
-        name: 'Banana'
-      },
-      {
-        name: 'Ananias'
-      },
-
-    ],
-
-  },
-  {
-    name: 'Vegetables',
-    children: [
-      {
-        name: 'Green',
-        children: [
-          {
-            name: 'Broccoli'
-          },
-          {
-            name: 'Brussels sprouts'
-          }
-        ]
-      },
-      {
-        name: 'Orange',
-        children: [
-          {
-            name: 'Pumpkins'
-          },
-          {
-            name: 'Carrots'
-          }
-        ]
-      }
-    ]
-  }
-]
-
-
-
-
-
-
-
-
-
-
 @Component({
   selector: 'mtx-multi-select-tree',
   templateUrl: './multi-select-tree.component.html',
@@ -102,13 +45,11 @@ const TREE_DATA: ItemNode[] = [
   ]
 })
 export class MultiSelectTreeComponent implements OnInit,ControlValueAccessor {
-  @Input() options: Array<Option> | undefined;
+  @Input() options!: Array<ItemNode>;
   @Input() config: Config | undefined;
   isShowMultiSelect: boolean = false;
   isFloatLabel: boolean = false;
   selectedArray: Option[] = [];
-  @Output() addSelectedOptions: EventEmitter<Option[]> = new EventEmitter<Option[]>();
-  @Output() selectChange: EventEmitter<Option> = new EventEmitter<Option>();
   countSelectedItems!: number | undefined;
   selectedOption: string = '';
   @ViewChild('dropdown') dropdownRef!: ElementRef;
@@ -163,7 +104,7 @@ export class MultiSelectTreeComponent implements OnInit,ControlValueAccessor {
       this.isExpandable, this.getChildren);
     this.treeControl = new FlatTreeControl<ItemFlatNode>(this.getLevel, this.isExpandable);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-    this.dataSource.data = TREE_DATA
+
     // database.dataChange.subscribe(data => {
     //   this.dataSource.data = data;
     // });
@@ -202,13 +143,12 @@ export class MultiSelectTreeComponent implements OnInit,ControlValueAccessor {
 
   /** Toggle the to-do item selection. Select/deselect all the descendants node */
   todoItemSelectionToggle(node: ItemFlatNode): void {
-    console.log(node);
     this.checklistSelection.toggle(node);
     const descendants = this.treeControl.getDescendants(node);
+
     this.checklistSelection.isSelected(node)
       ? this.checklistSelection.select(...descendants)
       : this.checklistSelection.deselect(...descendants);
-    console.log('checklistSelection',this.checklistSelection)
   }
 
   /** Select the category so we can insert the new item. */
@@ -226,7 +166,17 @@ export class MultiSelectTreeComponent implements OnInit,ControlValueAccessor {
 
 
   ngOnInit(): void {
-    this.input.valueChanges.subscribe(value => this.change(this.selectedArray));
+    if(this.options.length){
+      this.dataSource.data = this.options
+    }
+   this.checklistSelection.changed.subscribe(el=>{
+    const selected =  el.added.map((el) => el.item).join(',')
+       this.input.patchValue(selected)
+    });
+    this.input.valueChanges.subscribe(value => {
+      const {selected} = this.checklistSelection;
+      this.change(selected)
+    });
 
   }
 
