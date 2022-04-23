@@ -202,11 +202,13 @@ export class MultiSelectTreeComponent implements OnInit,ControlValueAccessor {
 
   /** Toggle the to-do item selection. Select/deselect all the descendants node */
   todoItemSelectionToggle(node: ItemFlatNode): void {
+    console.log(node);
     this.checklistSelection.toggle(node);
     const descendants = this.treeControl.getDescendants(node);
     this.checklistSelection.isSelected(node)
       ? this.checklistSelection.select(...descendants)
       : this.checklistSelection.deselect(...descendants);
+    console.log('checklistSelection',this.checklistSelection)
   }
 
   /** Select the category so we can insert the new item. */
@@ -276,6 +278,7 @@ export class MultiSelectTreeComponent implements OnInit,ControlValueAccessor {
 //  Tree
 
 
-
-
+  onChange(event: boolean) {
+    console.log(event)
+  }
 }
