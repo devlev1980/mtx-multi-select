@@ -183,14 +183,14 @@ export class MultiSelectTreeComponent implements OnInit,ControlValueAccessor {
   onClickOutside(event: any) {
     if (!this.elemRef.nativeElement.contains(event.target)) {
       this.isShowMultiSelect = false;
-      this.isFloatLabel = this.input?.value !== '';
+      this.isFloatLabel = this.input?.value !== null && this.input?.value !== '' ;
 
     }
   }
 
   onShowMultiSelect() {
-    this.isShowMultiSelect = true;
-    this.isFloatLabel = true;
+    this.isShowMultiSelect = !this.isShowMultiSelect;
+    this.isFloatLabel = !this.isFloatLabel || this.input?.value !== null;
   }
 
   onClearValues() {

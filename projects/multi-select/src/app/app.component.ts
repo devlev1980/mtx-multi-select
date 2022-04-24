@@ -37,27 +37,20 @@ export class AppComponent implements OnInit {
         children: [
           {
             name: 'Green',
-            children: [
-              {
-                name: 'Broccoli'
-              },
-              {
-                name: 'Brussels sprouts'
-              }
-            ]
           },
           {
             name: 'Orange',
-            children: [
-              {
-                name: 'Pumpkins'
-              },
-              {
-                name: 'Carrots'
-              }
-            ]
           }
         ]
+      },
+      {
+        name: 'Green'
+      },
+      {
+        name: 'Yellow'
+      },
+      {
+        name: 'Blue'
       }
     ]
 
