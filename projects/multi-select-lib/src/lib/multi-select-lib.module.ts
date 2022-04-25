@@ -11,12 +11,14 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {TreeViewModule} from "@syncfusion/ej2-angular-navigations";
 import {MatRippleModule} from "@angular/material/core";
+import { SelectedItemsCountPipe } from './selected-items-count.pipe';
 
 
 
 @NgModule({
   declarations: [
-    MultiSelectTreeComponent
+    MultiSelectTreeComponent,
+    SelectedItemsCountPipe
   ],
     imports: [
         CommonModule,

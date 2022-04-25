@@ -13,9 +13,10 @@ export class ItemNode {
   children?: ItemNode[] = [];
   name: string = '';
 }
+
 export class ItemFlatNode {
-  item: string  = '';
-  level: number  = 0;
+  item: string = '';
+  level: number = 0;
   expandable: boolean = false;
 }
 
@@ -35,7 +36,7 @@ export class ItemFlatNode {
 
   ]
 })
-export class MultiSelectTreeComponent implements OnInit,ControlValueAccessor {
+export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
   @Input() data!: Array<ItemNode>;
   @Input() config: Config | undefined;
   isShowMultiSelect: boolean = false;
@@ -47,38 +48,34 @@ export class MultiSelectTreeComponent implements OnInit,ControlValueAccessor {
   @ViewChild('inputRef') checkboxRef!: ElementRef;
   selectedChildren: Option[] | undefined = [];
   $event: any;
-  change = (value: any) => {
-  };
-  touched = (value: any) => {
-  }
   input: FormControl = new FormControl('')
   parentToCheck!: Array<Option> | undefined;
-
-
-
-
-
-
   // Tree
   flatNodeMap = new Map<ItemFlatNode, ItemNode>();
-
   /** Map from nested node to flattened node. This helps us to keep the same object for selection */
   nestedNodeMap = new Map<ItemNode, ItemFlatNode>();
-
   /** A selected parent node to be inserted */
   selectedParent: ItemFlatNode | null = null;
-
   /** The new item's name */
   newItemName = '';
-
   treeControl: FlatTreeControl<ItemFlatNode>;
-
   treeFlattener: MatTreeFlattener<ItemNode, ItemFlatNode>;
-
   dataSource: MatTreeFlatDataSource<ItemNode, ItemFlatNode>;
-
   /** The selection for checklist */
   checklistSelection = new SelectionModel<ItemFlatNode>(true /* multiple */);
+
+  constructor(private elemRef: ElementRef) {
+    this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
+      this.isExpandable, this.getChildren);
+    this.treeControl = new FlatTreeControl<ItemFlatNode>(this.getLevel, this.isExpandable);
+    this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  }
+
+  change = (value: any) => {
+  };
+
+  touched = (value: any) => {
+  }
 
   getLevel = (node: ItemFlatNode) => node.level;
 
@@ -89,15 +86,6 @@ export class MultiSelectTreeComponent implements OnInit,ControlValueAccessor {
   hasChild = (_: number, _nodeData: ItemFlatNode) => _nodeData.expandable;
 
   hasNoContent = (_: number, _nodeData: ItemFlatNode) => _nodeData.item === '';
-
-  constructor(private elemRef: ElementRef) {
-    this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
-      this.isExpandable, this.getChildren);
-    this.treeControl = new FlatTreeControl<ItemFlatNode>(this.getLevel, this.isExpandable);
-    this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-  }
-
-
 
   /**
    * Transformer to convert nested node to flat node. Record the nodes in maps for later use.
@@ -130,6 +118,7 @@ export class MultiSelectTreeComponent implements OnInit,ControlValueAccessor {
 
   /** Toggle the to-do item selection. Select/deselect all the descendants node */
   todoItemSelectionToggle(node: ItemFlatNode): void {
+
     this.checklistSelection.toggle(node);
     const descendants = this.treeControl.getDescendants(node);
 
@@ -139,21 +128,35 @@ export class MultiSelectTreeComponent implements OnInit,ControlValueAccessor {
   }
 
 
-
   ngOnInit(): void {
-    if(this.data.length){
+    if (this.data.length) {
       this.dataSource.data = this.mappingData(this.data);
     }
-   this.checklistSelection.changed.subscribe(el=>{
-    const selected =  el.added.map((el) => el.item).join(',')
-       this.input.patchValue(selected)
+    this.checklistSelection.changed.subscribe((el) => {
+
+      const selected = el.added
+        .filter((el) => !el.expandable)
+        .map((el) => el.item).join(',')
+      this.input.patchValue(selected)
+
     });
+
     this.input.valueChanges.subscribe(value => {
       const {selected} = this.checklistSelection;
-      this.change(selected)
+      console.log(selected)
+      const mappedSelected = selected
+        .filter((el) => !el.expandable)
+        .map((el, index) => {
+          return {
+            name: el.item,
+            index: index,
+          }
+        })
+      this.change(mappedSelected);
     });
 
   }
+
   mappingData(data: ItemNode[]): ItemNode[] {
     return data.map((el) => {
       return {
@@ -167,7 +170,7 @@ export class MultiSelectTreeComponent implements OnInit,ControlValueAccessor {
   onClickOutside(event: any) {
     if (!this.elemRef.nativeElement.contains(event.target)) {
       this.isShowMultiSelect = false;
-      this.isFloatLabel = this.input?.value !== null && this.input?.value !== '' ;
+      this.isFloatLabel = this.input?.value !== null && this.input?.value !== '';
 
     }
   }
@@ -178,7 +181,7 @@ export class MultiSelectTreeComponent implements OnInit,ControlValueAccessor {
   }
 
   onClearValues() {
-    this.treeControl.dataNodes.forEach((node,index)=>{
+    this.treeControl.dataNodes.forEach((node, index) => {
       this.checklistSelection.deselect(this.treeControl.dataNodes[index])
     })
     this.input.patchValue('');
@@ -186,6 +189,7 @@ export class MultiSelectTreeComponent implements OnInit,ControlValueAccessor {
 
   registerOnChange(fn: any) {
     this.change = fn;
+
   }
 
   writeValue(obj: any) {
