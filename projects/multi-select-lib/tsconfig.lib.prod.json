@@ -2,7 +2,13 @@
 {
   "extends": "./tsconfig.lib.json",
   "compilerOptions": {
-    "declarationMap": false
+    "declarationMap": false,
+    "paths": {
+      "multi-select-lib": [
+        "dist/multi-select-lib/multi-select-lib",
+        "dist/multi-select-lib"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "compilationMode": "partial"

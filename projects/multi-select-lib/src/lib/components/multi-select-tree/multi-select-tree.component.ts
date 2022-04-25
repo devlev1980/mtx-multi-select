@@ -1,20 +1,11 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  forwardRef,
-  Injectable,
-  Input,
-  OnInit,
-  Output,
-  ViewChild
-} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {Option} from '../multi-select/models/option.model';
 import {Config} from '../multi-select/models/config.model';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {SelectionModel} from '@angular/cdk/collections';
+
 /**
  * Node for to-do item
  */
@@ -45,7 +36,7 @@ export class ItemFlatNode {
   ]
 })
 export class MultiSelectTreeComponent implements OnInit,ControlValueAccessor {
-  @Input() options!: Array<ItemNode>;
+  @Input() data!: Array<ItemNode>;
   @Input() config: Config | undefined;
   isShowMultiSelect: boolean = false;
   isFloatLabel: boolean = false;
@@ -104,10 +95,6 @@ export class MultiSelectTreeComponent implements OnInit,ControlValueAccessor {
       this.isExpandable, this.getChildren);
     this.treeControl = new FlatTreeControl<ItemFlatNode>(this.getLevel, this.isExpandable);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-
-    // database.dataChange.subscribe(data => {
-    //   this.dataSource.data = data;
-    // });
   }
 
 
@@ -151,23 +138,11 @@ export class MultiSelectTreeComponent implements OnInit,ControlValueAccessor {
       : this.checklistSelection.deselect(...descendants);
   }
 
-  /** Select the category so we can insert the new item. */
-  // addNewItem(node: ItemFlatNode) {
-  //   const parentNode = this.flatNodeMap.get(node);
-  //   this.database.insertItem(parentNode!, '');
-  //   this.treeControl.expand(node);
-  // }
-
-  /** Save the node to database */
-  // saveNode(node: TodoItemFlatNode, itemValue: string) {
-  //   const nestedNode = this.flatNodeMap.get(node);
-  //   this.database.updateItem(nestedNode!, itemValue);
-  // }
 
 
   ngOnInit(): void {
-    if(this.options.length){
-      this.dataSource.data = this.options
+    if(this.data.length){
+      this.dataSource.data = this.mappingData(this.data);
     }
    this.checklistSelection.changed.subscribe(el=>{
     const selected =  el.added.map((el) => el.item).join(',')
@@ -178,6 +153,15 @@ export class MultiSelectTreeComponent implements OnInit,ControlValueAccessor {
       this.change(selected)
     });
 
+  }
+  mappingData(data: ItemNode[]): ItemNode[] {
+    return data.map((el) => {
+      return {
+        name: el?.name,
+        children: el?.children
+      }
+
+    })
   }
 
   onClickOutside(event: any) {
@@ -194,12 +178,9 @@ export class MultiSelectTreeComponent implements OnInit,ControlValueAccessor {
   }
 
   onClearValues() {
-    this.selectedArray = this.selectedArray.map((el) => {
-      el.selected = false;
-      return el
-    });
-
-    this.selectedArray = [];
+    this.treeControl.dataNodes.forEach((node,index)=>{
+      this.checklistSelection.deselect(this.treeControl.dataNodes[index])
+    })
     this.input.patchValue('');
   }
 

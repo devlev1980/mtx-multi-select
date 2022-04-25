@@ -1,13 +1,17 @@
-
- @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
-
- $primaryBg: #F47216;
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet');
+// Colors
+$primaryBg: #F47216;
 $accentBg: #27303C;
 $borderColor: #244CA8;
-$selectedCountColor:#C94D08;
+$selectedCountColor: #C94D08;
 $scrollbarBg: #596C84;
 $scrollbarTrackBg: #F0F3F6;
 $inputBorderColor: #c2c2c2;
+
+// Gradients
+$primaryBgGradient: radial-gradient(112.82% 225% at 50% -42.86%, #FFC264 0%, #F47216 100%);
+$footerBgGradient: linear-gradient(180deg, #F2F6FF -10.34%, #FFFFFF 100%);
 
 :host {
   display: block;
@@ -18,10 +22,10 @@ $inputBorderColor: #c2c2c2;
   width: 100%;
   border: 1px solid $borderColor;
   border-radius: 10px;
+  font-family: "Roboto", sans-serif;
 
   &.expanded {
     border-bottom: 0;
-
   }
 
   .form_group {
@@ -60,7 +64,8 @@ $inputBorderColor: #c2c2c2;
         outline: none;
         cursor: pointer;
         border-radius: 10px;
-        &:active{
+
+        &:active {
           outline: none;
         }
 
@@ -70,6 +75,7 @@ $inputBorderColor: #c2c2c2;
         padding-inline-end: 10px;
         background: transparent;
         border: 0;
+
         img {
           transition: all 0.4s linear;
 
@@ -91,7 +97,8 @@ $inputBorderColor: #c2c2c2;
     border-radius: 0 0 5px 5px;
     max-height: 525px;
     padding: 0;
-    &.hasChildren{
+
+    &.hasChildren {
       margin-block-start: 7px;
     }
 
@@ -102,11 +109,10 @@ $inputBorderColor: #c2c2c2;
 
     li {
       display: block;
-      //align-items: start;
       padding: 13px 20px;
       position: relative;
 
-      &.children{
+      &.children {
         padding: 10px 30px;
       }
 
@@ -115,12 +121,9 @@ $inputBorderColor: #c2c2c2;
         z-index: 2;
         cursor: pointer;
       }
-      ul{
-        padding-inline-start: 0;
-      }
 
-      ul > li:hover input ~ .checkmark {
-        /*background-color: #ccc;*/
+      ul {
+        padding-inline-start: 0;
       }
     }
 
@@ -128,7 +131,7 @@ $inputBorderColor: #c2c2c2;
       max-width: 100%;
       display: flex;
       align-items: center;
-      background: linear-gradient(180deg, #F2F6FF -10.34%, #FFFFFF 100%);
+      background:$footerBgGradient;
       position: sticky;
       bottom: 0;
       border-bottom: 1px solid $borderColor;
@@ -152,18 +155,20 @@ $inputBorderColor: #c2c2c2;
       button {
         background-color: transparent;
         border: 0;
+
         &.primary {
           min-height: 29px;
           min-width: 84px;
-          color: #27303C;
-          background: radial-gradient(112.82% 225% at 50% -42.86%, #FFC264 0%, #F47216 100%);
+          color: $accentBg;
+          background: $primaryBgGradient;
           margin-inline-end: 10px;
           border-radius: 74px;
 
 
         }
-        &.mat-button-disabled{
-          background: #c2c2c2;
+
+        &.mat-button-disabled {
+          background: $inputBorderColor;
         }
 
         &.accent {
@@ -191,30 +196,60 @@ $inputBorderColor: #c2c2c2;
   background: $scrollbarBg;
   border-radius: 10px;
 }
-::ng-deep.mat-checkbox-inner-container{
+
+::ng-deep.mat-checkbox-inner-container {
   margin-inline-end: 10px !important;
 }
-::ng-deep.mat-checkbox-frame{
+
+::ng-deep.mat-checkbox-frame {
   border-color: $primaryBg !important;
   width: 18px !important;
   height: 18px !important;
+  border-width: 1px !important;
   border-radius: 3px !important;
 }
+
 ::ng-deep.mat-checkbox-checked.mat-accent .mat-checkbox-background.mat-checkbox-background,
-::ng-deep.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background.mat-checkbox-background{
+::ng-deep.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background.mat-checkbox-background {
   background-color: $primaryBg !important;
+  height: 18px;
 }
-::ng-deep.mat-checkbox-label{
+
+::ng-deep.mat-checkbox-label {
   color: $accentBg !important;
 }
-::ng-deep mat-tree-node[aria-level="2"]{
+
+::ng-deep mat-tree-node[aria-level="2"] {
   margin-inline-start: 2rem !important;
 }
-::ng-deep mat-tree-node[aria-level="3"]{
+
+::ng-deep mat-tree-node[aria-level="3"] {
   margin-inline-start: 4rem !important;
 }
+
 ::ng-deep.mat-checkbox-background, .mat-checkbox-frame {
   left: -1px !important;
+}
+
+::ng-deep button {
+  .mat-icon {
+    transform: rotate(180deg) !important;
+    font-weight: 400 !important;
+    font-size: 15px !important;
+  }
+
+  &.expand {
+    .mat-icon {
+      transform: rotate(360deg) !important;
+
+    }
+  }
+
+
+}
+
+::ng-deep.mat-icon[value="expand_more"] {
+  transform: rotate(180deg) !important;
 }
 
 

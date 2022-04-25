@@ -10,12 +10,12 @@ import {ItemNode} from "../../../multi-select-lib/src/lib/components/multi-selec
 })
 export class AppComponent implements OnInit {
   title = 'multi-select';
-  options: Array<ItemNode> = [];
+  data: Array<ItemNode> = [];
   config?: Config | undefined;
   input: FormControl = new FormControl('')
 
   ngOnInit() {
-    this.options = [
+    this.data = [
       {
         name: 'Fruit',
         children: [

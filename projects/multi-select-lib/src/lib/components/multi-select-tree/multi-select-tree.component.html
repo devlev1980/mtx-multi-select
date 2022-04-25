@@ -21,18 +21,10 @@
                         (change)="checklistSelection.toggle(node);">{{node.item}}</mat-checkbox>
         </mat-tree-node>
 
-<!--        <mat-tree-node *matTreeNodeDef="let node; when: hasNoContent" matTreeNodePadding>-->
-<!--          <button mat-icon-button disabled></button>-->
-<!--          <mat-form-field>-->
-<!--            <input matInput #itemValue placeholder="New item...">-->
-<!--          </mat-form-field>-->
-<!--          &lt;!&ndash;          <button mat-button (click)="saveNode(node, itemValue.value)">Save</button>&ndash;&gt;-->
-<!--        </mat-tree-node>-->
-
         <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding="20px" >
           <button mat-icon-button matTreeNodeToggle
-                  [attr.aria-label]="'toggle ' + node.filename">
-            <mat-icon class="mat-icon-rtl-mirror">
+                  [attr.aria-label]="'toggle ' + node.filename" [class.expand]="treeControl.isExpanded(node)">
+            <mat-icon class="mat-icon-rtl-mirror" >
               {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
             </mat-icon>
           </button>
@@ -40,7 +32,6 @@
                         class="checklist-leaf-node-child "
                         [indeterminate]="descendantsPartiallySelected(node)"
                         (change)="todoItemSelectionToggle(node)">{{node.item}}</mat-checkbox>
-          <!--          <button ><mat-icon>add</mat-icon></button>-->
         </mat-tree-node>
       </mat-tree>
     </div>
