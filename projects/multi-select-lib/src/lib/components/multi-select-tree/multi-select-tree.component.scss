@@ -99,6 +99,7 @@ $footerBgGradient: linear-gradient(180deg, #F2F6FF -10.34%, #FFFFFF 100%);
     border-radius: 0 0 5px 5px;
     max-height: 525px;
     padding: 0;
+    margin-block-start: 0;
 
     &.hasChildren {
       margin-block-start: 7px;

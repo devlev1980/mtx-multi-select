@@ -66,10 +66,8 @@ export class AppComponent implements OnInit {
     this.config = {
       label: 'בחר ישוב',
       selectedText: 'נבחרו',
-      itemsText: '',
-      addButton: 'אישור',
       clearValuesButton: 'ניקוי בחירה',
-      direction: 'ltr'
+      direction: 'rtl'
 
     }
     this.input.valueChanges.subscribe(res => {

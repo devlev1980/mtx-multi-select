@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {ItemFlatNode} from './components/multi-select-tree/models/item-flat-node';
+import {ItemFlatNode} from './models/item-flat-node';
 
 @Pipe({
   name: 'selectedItemsCount'

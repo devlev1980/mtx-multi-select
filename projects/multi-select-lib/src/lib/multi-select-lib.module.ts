@@ -34,7 +34,8 @@ import {SelectedItemsCountPipe} from './selected-items-count.pipe';
   ],
   exports: [
     MultiSelectTreeComponent
-  ]
+  ],
+
 })
 export class MultiSelectLibModule {
 }
