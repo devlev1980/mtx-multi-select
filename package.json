@@ -1,6 +1,10 @@
 {
   "name": "multi-select",
-  "version": "1.0.4",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Yevgeny Levin"
+  },
   "publishConfig": {
     "registry": "http://localhost:4873/"
   },

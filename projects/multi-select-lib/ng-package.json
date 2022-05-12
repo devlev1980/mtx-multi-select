@@ -1,7 +1,9 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/multi-select-lib",
-  "assets": ["./assets"],
+  "assets": [
+    "./assets"
+  ],
   "lib": {
     "entryFile": "src/public-api.ts"
   }

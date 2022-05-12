@@ -13,6 +13,7 @@ $inputBorderColor: #c2c2c2;
 $primaryBgGradient: radial-gradient(112.82% 225% at 50% -42.86%, #FFC264 0%, #F47216 100%);
 $footerBgGradient: linear-gradient(180deg, #F2F6FF -10.34%, #FFFFFF 100%);
 
+
 :host {
   display: block;
   max-width: 400px;
@@ -23,6 +24,7 @@ $footerBgGradient: linear-gradient(180deg, #F2F6FF -10.34%, #FFFFFF 100%);
   border: 1px solid $borderColor;
   border-radius: 10px;
   font-family: "Roboto", sans-serif;
+
 
   &.expanded {
     border-bottom: 0;
@@ -131,7 +133,7 @@ $footerBgGradient: linear-gradient(180deg, #F2F6FF -10.34%, #FFFFFF 100%);
       max-width: 100%;
       display: flex;
       align-items: center;
-      background:$footerBgGradient;
+      background: $footerBgGradient;
       position: sticky;
       bottom: 0;
       border-bottom: 1px solid $borderColor;
@@ -219,21 +221,12 @@ $footerBgGradient: linear-gradient(180deg, #F2F6FF -10.34%, #FFFFFF 100%);
   color: $accentBg !important;
 }
 
-::ng-deep mat-tree-node[aria-level="2"] {
-  margin-inline-start: 2rem !important;
-}
-
-::ng-deep mat-tree-node[aria-level="3"] {
-  margin-inline-start: 4rem !important;
-}
-
 ::ng-deep.mat-checkbox-background, .mat-checkbox-frame {
   left: -1px !important;
 }
 
 ::ng-deep button {
   .mat-icon {
-    transform: rotate(180deg) !important;
     font-weight: 400 !important;
     font-size: 15px !important;
   }
@@ -248,9 +241,8 @@ $footerBgGradient: linear-gradient(180deg, #F2F6FF -10.34%, #FFFFFF 100%);
 
 }
 
-::ng-deep.mat-icon[value="expand_more"] {
-  transform: rotate(180deg) !important;
-}
+
+
 
 
 

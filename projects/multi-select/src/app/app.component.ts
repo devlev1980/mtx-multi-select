@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Config} from './models/config.model';
 import {FormControl} from '@angular/forms';
-import {ItemNode} from "../../../multi-select-lib/src/lib/components/multi-select-tree/multi-select-tree.component";
+import {ItemNode} from './models/item-node';
 
 @Component({
   selector: 'mtx-root',
@@ -37,6 +37,14 @@ export class AppComponent implements OnInit {
         children: [
           {
             name: 'Green',
+            children: [
+              {
+                name: 'a'
+              },
+              {
+                name: 'b'
+              }
+            ]
           },
           {
             name: 'Orange',
@@ -61,6 +69,7 @@ export class AppComponent implements OnInit {
       itemsText: '',
       addButton: 'אישור',
       clearValuesButton: 'ניקוי בחירה',
+      direction: 'ltr'
 
     }
     this.input.valueChanges.subscribe(res => {
