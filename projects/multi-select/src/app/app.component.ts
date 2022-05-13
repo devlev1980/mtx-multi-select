@@ -38,6 +38,14 @@ export class AppComponent implements OnInit {
         children: [
           {
             name: 'Green',
+            children: [
+              {
+                name: 'a'
+              },
+              {
+                name: 'b'
+              }
+            ]
           },
           {
             name: 'Orange',
@@ -54,12 +62,15 @@ export class AppComponent implements OnInit {
         name: 'Blue'
       }
     ]
+
+
     this.config = {
       label: 'בחר ישוב',
       selectedText: 'נבחרו',
       itemsText: '',
       addButton: 'אישור',
       clearValuesButton: 'ניקוי בחירה',
+      direction: 'rtl'
 
     }
     this.input.valueChanges.subscribe(res => {

@@ -1,9 +1,9 @@
-<div class="multi_select" [class.expanded]="isShowMultiSelect">
+<div class="multi_select" [class.expanded]="isShowMultiSelect" [ngClass]="[config?.direction]">
   <div class="form_group">
     <div class="form_control" [class.active]="isShowMultiSelect">
       <label for="select" [class.float]="isFloatLabel">{{config?.label}}</label>
-      <input type="text" name="" id="select"  (click)="onShowMultiSelect()" readonly
-             [formControl]="input" >
+      <input type="text" name="" id="select" (click)="onShowMultiSelect()" readonly
+             [formControl]="input">
       <button [class.expanded]="isShowMultiSelect">
         <img src="assets/icons/dropdown.svg" alt="">
       </button>
@@ -11,20 +11,20 @@
   </div>
 
 
-  <ul class="multi_select_dropdown" *ngIf="isShowMultiSelect">
+  <ul class="multi_select_dropdown" *ngIf="isShowMultiSelect" [ngClass]="[config?.direction]">
     <div class="content">
       <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-        <mat-tree-node *matTreeNodeDef="let node"  matTreeNodePadding >
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
           <button mat-icon-button disabled></button>
           <mat-checkbox class="checklist-leaf-node"
                         [checked]="checklistSelection.isSelected(node)"
                         (change)="checklistSelection.toggle(node);">{{node.item}}</mat-checkbox>
         </mat-tree-node>
 
-        <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding="20px" >
+        <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding="20px">
           <button mat-icon-button matTreeNodeToggle
                   [attr.aria-label]="'toggle ' + node.filename" [class.expand]="treeControl.isExpanded(node)">
-            <mat-icon class="mat-icon-rtl-mirror" >
+            <mat-icon class="mat-icon-rtl-mirror">
               {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
             </mat-icon>
           </button>
@@ -37,10 +37,9 @@
     </div>
 
 
-
-
     <div class="footer">
-      <span class="selected_count" *ngIf="this.checklistSelection.selected.length">{{this.checklistSelection.selected | selectedItemsCount}} {{config?.selectedText}} </span>
+      <span class="selected_count"
+            *ngIf="this.checklistSelection.selected.length">{{this.checklistSelection.selected | selectedItemsCount}} {{config?.selectedText}} </span>
       <div class="actions">
         <!--        <button mat-raised-button class="primary"  (click)="onAddSelectedOption()" [disabled]="selectedArray?.length === 0">{{config?.addButton}}</button>-->
         <button mat-raised-button class="accent" (click)="onClearValues()">{{config?.clearValuesButton}}</button>

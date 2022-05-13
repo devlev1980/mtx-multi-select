@@ -1,6 +1,10 @@
 {
   "name": "multi-select",
   "version": "0.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Yevgeny Levin"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

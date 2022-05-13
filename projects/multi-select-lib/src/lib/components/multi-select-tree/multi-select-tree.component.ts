@@ -1,6 +1,7 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {Option} from '../multi-select/models/option.model';
-import {Config} from '../multi-select/models/config.model';
+import {Config} from '../../models/config.model';
+import {Option} from '../../models/option.model';
+
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {FlatTreeControl} from '@angular/cdk/tree';
@@ -121,6 +122,8 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
 
 
   ngOnInit(): void {
+    document.body.dir = this.config?.direction!;
+
     if (this.data.length) {
       this.dataSource.data = this.mappingData(this.data);
     }
@@ -135,7 +138,6 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
 
     this.input.valueChanges.subscribe(value => {
       const {selected} = this.checklistSelection;
-      console.log(selected)
       const mappedSelected = selected
         .filter((el) => !el.expandable)
         .map((el, index) => {
@@ -202,10 +204,4 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
   }
 
 
-//  Tree
-
-
-  onChange(event: boolean) {
-    console.log(event)
-  }
 }
