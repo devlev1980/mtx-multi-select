@@ -8,8 +8,6 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import {MatRippleModule} from '@angular/material/core';
-import {SelectedItemsCountPipe} from './selected-items-count.pipe';
 import {MatRippleModule} from "@angular/material/core";
 import { SelectedItemsCountPipe } from './selected-items-count.pipe';
 
