@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Config} from './models/config.model';
 import {FormControl} from '@angular/forms';
-import {ItemNode} from "../../../multi-select-lib/src/lib/components/multi-select-tree/multi-select-tree.component";
+import {ItemNode} from "./models/item-node.model";
+
 
 @Component({
   selector: 'mtx-root',
@@ -53,8 +54,6 @@ export class AppComponent implements OnInit {
         name: 'Blue'
       }
     ]
-
-
     this.config = {
       label: 'בחר ישוב',
       selectedText: 'נבחרו',

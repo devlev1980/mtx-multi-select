@@ -5,20 +5,12 @@ import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/for
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {SelectionModel} from '@angular/cdk/collections';
+import {ItemNode} from "../../models/item-node.model";
+import {ItemFlatNode} from "../../models/item-flat-node.model";
 
-/**
- * Node for to-do item
- */
-export class ItemNode {
-  children?: ItemNode[] = [];
-  name: string = '';
-}
 
-export class ItemFlatNode {
-  item: string = '';
-  level: number = 0;
-  expandable: boolean = false;
-}
+
+
 
 @Component({
   selector: 'mtx-multi-select-tree',

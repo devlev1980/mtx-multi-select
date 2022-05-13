@@ -1,15 +1,14 @@
 {
   "name": "multi-select",
-  "version": "1.0.4",
-  "publishConfig": {
-    "registry": "http://localhost:4873/"
-  },
+  "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "version:patch": "cd ./projects/multi-select-lib && npm version patch && cd ../../",
+    "publish": "npm run version:patch && npm run build && cd dist/multi-select-lib && npm pack"
   },
   "dependencies": {
     "@angular/animations": "~13.1.0",
@@ -22,8 +21,6 @@
     "@angular/platform-browser": "~13.1.0",
     "@angular/platform-browser-dynamic": "~13.1.0",
     "@angular/router": "~13.1.0",
-    "@syncfusion/ej2-angular-grids": "^20.1.48",
-    "@syncfusion/ej2-angular-navigations": "^20.1.48",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
