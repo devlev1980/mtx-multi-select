@@ -44,6 +44,8 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
   dataSource: MatTreeFlatDataSource<ItemNode, ItemFlatNode>;
   /** The selection for checklist */
   checklistSelection = new SelectionModel<ItemFlatNode>(true /* multiple */);
+  checkedValues: string[] = [];
+  selected!: string;
 
   constructor(private elemRef: ElementRef) {
     this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
@@ -114,18 +116,15 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
     if (this.data.length) {
       this.dataSource.data = this.mappingData(this.data);
     }
-    let selected: string = '';
-    let checkedValues: string[] = [];
     this.checklistSelection.changed.subscribe((el) => {
-      selected = el.added
-        .filter((el) => !el.expandable)
-        .map((el) => el.item).join(',');
-      if (el.added.length) {
-        checkedValues.push(selected);
-      } else {
-        checkedValues.splice(checkedValues.indexOf(selected), 1);
+      this.checkedValues = this.checklistSelection.selected
+        .filter((a) => !a.expandable)
+        .map((el) => el.item)
+      this.input.patchValue(this.checkedValues);
+
+      if(this.checkedValues.length > 3){
+        this.input.patchValue(this.checkedValues?.length + ' '+ this.config?.selectedText!)
       }
-      this.input.patchValue(checkedValues.splice(checkedValues.length -1,1))
     });
 
 
@@ -140,6 +139,7 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
           }
         });
       this.change(mappedSelected);
+
     });
 
   }
