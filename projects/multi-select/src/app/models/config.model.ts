@@ -7,5 +7,4 @@ export interface Config {
   clearValuesButton: string;
   panelClass?: string;
   direction: string;
-
 }

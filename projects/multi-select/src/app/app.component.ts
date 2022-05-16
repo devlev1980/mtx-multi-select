@@ -70,8 +70,7 @@ export class AppComponent implements OnInit {
       itemsText: '',
       addButton: 'אישור',
       clearValuesButton: 'ניקוי בחירה',
-      direction: 'rtl'
-
+      direction: 'rtl',
     }
     this.input.valueChanges.subscribe(res => {
       console.log('result', res)

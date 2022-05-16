@@ -4,12 +4,9 @@ import {Option} from '../../models/option.model';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {FlatTreeControl} from '@angular/cdk/tree';
-import {SelectionModel} from '@angular/cdk/collections';
+import {SelectionChange, SelectionModel} from '@angular/cdk/collections';
 import {ItemNode} from "../../models/item-node.model";
 import {ItemFlatNode} from "../../models/item-flat-node.model";
-
-
-
 
 
 @Component({
@@ -34,22 +31,14 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
   isShowMultiSelect: boolean = false;
   isFloatLabel: boolean = false;
   selectedArray: Option[] = [];
-  countSelectedItems!: number | undefined;
-  selectedOption: string = '';
-  @ViewChild('dropdown') dropdownRef!: ElementRef;
-  @ViewChild('inputRef') checkboxRef!: ElementRef;
-  selectedChildren: Option[] | undefined = [];
   $event: any;
   input: FormControl = new FormControl('')
-  parentToCheck!: Array<Option> | undefined;
   // Tree
   flatNodeMap = new Map<ItemFlatNode, ItemNode>();
   /** Map from nested node to flattened node. This helps us to keep the same object for selection */
   nestedNodeMap = new Map<ItemNode, ItemFlatNode>();
   /** A selected parent node to be inserted */
   selectedParent: ItemFlatNode | null = null;
-  /** The new item's name */
-  newItemName = '';
   treeControl: FlatTreeControl<ItemFlatNode>;
   treeFlattener: MatTreeFlattener<ItemNode, ItemFlatNode>;
   dataSource: MatTreeFlatDataSource<ItemNode, ItemFlatNode>;
@@ -122,18 +111,23 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
 
   ngOnInit(): void {
     document.body.dir = this.config?.direction!;
-
     if (this.data.length) {
       this.dataSource.data = this.mappingData(this.data);
     }
+    let selected: string = '';
+    let checkedValues: string[] = [];
     this.checklistSelection.changed.subscribe((el) => {
-
-      const selected = el.added
+      selected = el.added
         .filter((el) => !el.expandable)
-        .map((el) => el.item).join(',')
-      this.input.patchValue(selected)
-
+        .map((el) => el.item).join(',');
+      if (el.added.length) {
+        checkedValues.push(selected);
+      } else {
+        checkedValues.splice(checkedValues.indexOf(selected), 1);
+      }
+      this.input.patchValue(checkedValues.splice(checkedValues.length -1,1))
     });
+
 
     this.input.valueChanges.subscribe(value => {
       const {selected} = this.checklistSelection;
@@ -144,7 +138,7 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
             name: el.item,
             index: index,
           }
-        })
+        });
       this.change(mappedSelected);
     });
 
@@ -182,7 +176,6 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
 
   registerOnChange(fn: any) {
     this.change = fn;
-
   }
 
   writeValue(obj: any) {
