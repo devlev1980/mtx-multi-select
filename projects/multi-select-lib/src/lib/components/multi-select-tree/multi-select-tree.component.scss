@@ -8,6 +8,7 @@ $selectedCountColor: #C94D08;
 $scrollbarBg: #596C84;
 $scrollbarTrackBg: #F0F3F6;
 $inputBorderColor: #c2c2c2;
+$disabledBg: #f2f2f2;
 
 // Gradients
 $primaryBgGradient: radial-gradient(112.82% 225% at 50% -42.86%, #FFC264 0%, #F47216 100%);
@@ -66,7 +67,10 @@ $footerBgGradient: linear-gradient(180deg, #F2F6FF -10.34%, #FFFFFF 100%);
         outline: none;
         cursor: pointer;
         border-radius: 10px;
-
+        &:disabled{
+          cursor: not-allowed;
+          background-color: $disabledBg;
+        }
         &:active {
           outline: none;
         }

@@ -1,9 +1,9 @@
-<div class="multi_select" [class.expanded]="isShowMultiSelect" [ngClass]="[config?.direction]">
+<div class="multi_select" [class.expanded]="isShowMultiSelect" [ngClass]="[config?.direction]" >
   <div class="form_group">
     <div class="form_control" [class.active]="isShowMultiSelect">
       <label for="select" [class.float]="isFloatLabel">{{config?.label}}</label>
-      <input type="text" name="" id="select" (click)="onShowMultiSelect()" readonly
-             [formControl]="input">
+      <input type="text" name="" #inputRef id="select" (click)="onShowMultiSelect()" readonly
+             [formControl]="input" >
       <button [class.expanded]="isShowMultiSelect">
         <img src="assets/icons/dropdown.svg" alt="">
       </button>

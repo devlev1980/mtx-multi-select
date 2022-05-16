@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   title = 'multi-select';
   data: Array<ItemNode> = [];
   config?: Config | undefined;
-  input: FormControl = new FormControl('')
+  input: FormControl = new FormControl({value: '',disabled: false})
 
   ngOnInit() {
     this.data = [
@@ -70,8 +70,9 @@ export class AppComponent implements OnInit {
       itemsText: '',
       addButton: 'אישור',
       clearValuesButton: 'ניקוי בחירה',
-      direction: 'rtl',
+      direction: 'rtl'
     }
+
     this.input.valueChanges.subscribe(res => {
       console.log('result', res)
     })

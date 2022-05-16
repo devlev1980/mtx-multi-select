@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {Config} from '../../models/config.model';
 import {Option} from '../../models/option.model';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
@@ -28,6 +28,7 @@ import {ItemFlatNode} from "../../models/item-flat-node.model";
 export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
   @Input() data!: Array<ItemNode>;
   @Input() config: Config | undefined;
+  @ViewChild('inputRef',{read: ElementRef})inputRef!: ElementRef;
   isShowMultiSelect: boolean = false;
   isFloatLabel: boolean = false;
   selectedArray: Option[] = [];
@@ -45,9 +46,8 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
   /** The selection for checklist */
   checklistSelection = new SelectionModel<ItemFlatNode>(true /* multiple */);
   checkedValues: string[] = [];
-  selected!: string;
 
-  constructor(private elemRef: ElementRef) {
+  constructor(private elemRef: ElementRef,private renderer: Renderer2) {
     this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
       this.isExpandable, this.getChildren);
     this.treeControl = new FlatTreeControl<ItemFlatNode>(this.getLevel, this.isExpandable);
@@ -193,6 +193,10 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean) {
+    console.log(isDisabled)
+    setTimeout(()=>{
+      this.renderer.setProperty(this.inputRef?.nativeElement, 'disabled', isDisabled);
+    },0)
   }
 
 
