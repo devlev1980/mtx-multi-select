@@ -1,9 +1,9 @@
-<div class="multi_select" [class.expanded]="isShowMultiSelect" [ngClass]="[config?.direction]" >
+<div class="multi_select" [class.expanded]="isShowMultiSelect" [ngClass]="[config?.direction]">
   <div class="form_group">
-    <div class="form_control" [class.active]="isShowMultiSelect">
+    <div class="form_control" [class.active]="isShowMultiSelect" (click)="onShowMultiSelect()">
       <label for="select" [class.float]="isFloatLabel">{{config?.label}}</label>
-      <input type="text" name="" #inputRef id="select" (click)="onShowMultiSelect()" readonly
-             [formControl]="input" >
+      <input type="text" name="" #inputRef id="select" readonly
+             [formControl]="input">
       <button [class.expanded]="isShowMultiSelect">
         <img src="assets/icons/dropdown.svg" alt="">
       </button>
@@ -18,7 +18,7 @@
           <button mat-icon-button disabled></button>
           <mat-checkbox class="checklist-leaf-node"
                         [checked]="checklistSelection.isSelected(node)"
-                        (change)="checklistSelection.toggle(node);">{{node.item}}</mat-checkbox>
+                        (change)="checklistSelection.toggle(node);">{{node.item[config!.propKey]}}</mat-checkbox>
         </mat-tree-node>
 
         <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding="20px">
@@ -31,7 +31,7 @@
           <mat-checkbox [checked]="descendantsAllSelected(node)"
                         class="checklist-leaf-node-child "
                         [indeterminate]="descendantsPartiallySelected(node)"
-                        (change)="todoItemSelectionToggle(node)">{{node.item}}</mat-checkbox>
+                        (change)="todoItemSelectionToggle(node)">{{node.item[config!.propKey]}}</mat-checkbox>
         </mat-tree-node>
       </mat-tree>
     </div>

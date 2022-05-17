@@ -1,5 +1,6 @@
 export class ItemFlatNode {
-  item: string = '';
+  item: any;
   level: number = 0;
   expandable: boolean = false;
+
 }

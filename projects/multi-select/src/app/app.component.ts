@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Config} from './models/config.model';
 import {FormControl} from '@angular/forms';
-import {ItemNode} from "./models/item-node.model";
+import {ItemNode} from './models/item-node.model';
 
 
 @Component({
@@ -13,21 +13,25 @@ export class AppComponent implements OnInit {
   title = 'multi-select';
   data: Array<ItemNode> = [];
   config?: Config | undefined;
-  input: FormControl = new FormControl({value: '',disabled: false})
+  input: FormControl = new FormControl({value: '', disabled: false})
 
   ngOnInit() {
     this.data = [
       {
         name: 'Fruit',
+
         children: [
           {
-            name: 'Apple'
+            name: 'Apple',
+            id: 'a'
           },
           {
-            name: 'Banana'
+            name: 'Banana',
+            id: 'b'
           },
           {
-            name: 'Ananias'
+            name: 'Ananias',
+            id: 'c'
           },
 
         ],
@@ -70,7 +74,8 @@ export class AppComponent implements OnInit {
       itemsText: '',
       addButton: 'אישור',
       clearValuesButton: 'ניקוי בחירה',
-      direction: 'rtl'
+      direction: 'rtl',
+      propKey: 'name'
     }
 
     this.input.valueChanges.subscribe(res => {

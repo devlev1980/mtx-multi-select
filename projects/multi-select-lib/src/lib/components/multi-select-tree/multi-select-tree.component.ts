@@ -4,9 +4,9 @@ import {Option} from '../../models/option.model';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {FlatTreeControl} from '@angular/cdk/tree';
-import {SelectionChange, SelectionModel} from '@angular/cdk/collections';
-import {ItemNode} from "../../models/item-node.model";
-import {ItemFlatNode} from "../../models/item-flat-node.model";
+import {SelectionModel} from '@angular/cdk/collections';
+import {ItemNode} from '../../models/item-node.model';
+import {ItemFlatNode} from '../../models/item-flat-node.model';
 
 
 @Component({
@@ -28,7 +28,7 @@ import {ItemFlatNode} from "../../models/item-flat-node.model";
 export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
   @Input() data!: Array<ItemNode>;
   @Input() config: Config | undefined;
-  @ViewChild('inputRef',{read: ElementRef})inputRef!: ElementRef;
+  @ViewChild('inputRef', {read: ElementRef}) inputRef!: ElementRef;
   isShowMultiSelect: boolean = false;
   isFloatLabel: boolean = false;
   selectedArray: Option[] = [];
@@ -47,7 +47,7 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
   checklistSelection = new SelectionModel<ItemFlatNode>(true /* multiple */);
   checkedValues: string[] = [];
 
-  constructor(private elemRef: ElementRef,private renderer: Renderer2) {
+  constructor(private elemRef: ElementRef, private renderer: Renderer2) {
     this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
       this.isExpandable, this.getChildren);
     this.treeControl = new FlatTreeControl<ItemFlatNode>(this.getLevel, this.isExpandable);
@@ -70,16 +70,23 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
 
   hasNoContent = (_: number, _nodeData: ItemFlatNode) => _nodeData.item === '';
 
+
   /**
    * Transformer to convert nested node to flat node. Record the nodes in maps for later use.
    */
   transformer = (node: ItemNode, level: number) => {
-    const existingNode = this.nestedNodeMap.get(node);
-    const flatNode = existingNode && existingNode.item === node.name
+    const existingNode = this.nestedNodeMap.get(node)
+    const flatNode = existingNode && existingNode.item[this.config!.propKey] === node[this.config!.propKey]
       ? existingNode
       : new ItemFlatNode();
-    flatNode.item = node.name
+    let obj = {}
+    Object.keys(node).map((key) => {
+      obj = {...obj, [key]: node[key]}
+
+    })
     flatNode.level = level;
+
+    flatNode.item = obj;
     flatNode.expandable = !!node.children;
     this.flatNodeMap.set(flatNode, node);
     this.nestedNodeMap.set(node, flatNode);
@@ -122,20 +129,22 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
         .map((el) => el.item)
       this.input.patchValue(this.checkedValues);
 
-      if(this.checkedValues.length > 3){
-        this.input.patchValue(this.checkedValues?.length + ' '+ this.config?.selectedText!)
+      if (this.checkedValues.length > 3) {
+        this.input.patchValue(this.checkedValues?.length + ' ' + this.config?.selectedText!)
       }
     });
 
 
     this.input.valueChanges.subscribe(value => {
       const {selected} = this.checklistSelection;
+      let prop: string = this.config?.propKey || ''
       const mappedSelected = selected
         .filter((el) => !el.expandable)
-        .map((el, index) => {
+        .map((el: any, index) => {
           return {
-            name: el.item,
+            name: prop ? el[prop] : el,
             index: index,
+
           }
         });
       this.change(mappedSelected);
@@ -145,9 +154,11 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
   }
 
   mappingData(data: ItemNode[]): ItemNode[] {
+    let prop: string = this.config?.propKey || ''
+
     return data.map((el) => {
       return {
-        name: el?.name,
+        name: el,
         children: el?.children
       }
 
@@ -194,9 +205,9 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean) {
     console.log(isDisabled)
-    setTimeout(()=>{
+    setTimeout(() => {
       this.renderer.setProperty(this.inputRef?.nativeElement, 'disabled', isDisabled);
-    },0)
+    }, 0)
   }
 
 

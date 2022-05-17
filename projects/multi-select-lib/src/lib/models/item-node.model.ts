@@ -3,5 +3,6 @@
  */
 export class ItemNode {
   children?: ItemNode[] = [];
-  name: string = '';
+
+  [key: string]: any;
 }

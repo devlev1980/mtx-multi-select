@@ -67,10 +67,12 @@ $footerBgGradient: linear-gradient(180deg, #F2F6FF -10.34%, #FFFFFF 100%);
         outline: none;
         cursor: pointer;
         border-radius: 10px;
-        &:disabled{
+
+        &:disabled {
           cursor: not-allowed;
           background-color: $disabledBg;
         }
+
         &:active {
           outline: none;
         }
@@ -81,6 +83,8 @@ $footerBgGradient: linear-gradient(180deg, #F2F6FF -10.34%, #FFFFFF 100%);
         padding-inline-end: 10px;
         background: transparent;
         border: 0;
+        cursor: pointer;
+
 
         img {
           transition: all 0.4s linear;
@@ -237,6 +241,7 @@ $footerBgGradient: linear-gradient(180deg, #F2F6FF -10.34%, #FFFFFF 100%);
   }
 
   &.expand {
+
     .mat-icon {
       transform: rotate(360deg) !important;
 
