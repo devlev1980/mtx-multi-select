@@ -10,4 +10,5 @@ export interface Config {
   propKey: string;
   isShowSelectedItemsLabel: boolean;
   isShowFooter: boolean;
+  isShowExpandTreeIcons: boolean;
 }

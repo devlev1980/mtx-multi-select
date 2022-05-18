@@ -77,7 +77,8 @@ export class AppComponent implements OnInit {
       direction: 'rtl',
       propKey: 'name',
       isShowFooter: true,
-      isShowSelectedItemsLabel: false
+      isShowSelectedItemsLabel: false,
+      isShowExpandTreeIcons: false
     }
 
     this.input.valueChanges.subscribe(res => {

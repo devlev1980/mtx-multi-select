@@ -75,7 +75,13 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
    * Transformer to convert nested node to flat node. Record the nodes in maps for later use.
    */
   transformer = (node: ItemNode, level: number) => {
-    const existingNode = this.nestedNodeMap.get(node)
+    const existingNode = this.nestedNodeMap.get(node);
+    if (!this.config?.isShowExpandTreeIcons) {
+      setTimeout(() => {
+        this.treeControl.expandAll();
+      }, 0)
+    }
+
     const flatNode = existingNode && existingNode.item[this.config!.propKey] === node[this.config!.propKey]
       ? existingNode
       : new ItemFlatNode();
@@ -111,7 +117,7 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
 
     this.checklistSelection.toggle(node);
     const descendants = this.treeControl.getDescendants(node);
-
+    this.checklistSelection.select()
     this.checklistSelection.isSelected(node)
       ? this.checklistSelection.select(...descendants)
       : this.checklistSelection.deselect(...descendants);
@@ -119,6 +125,7 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
 
 
   ngOnInit(): void {
+
     document.body.dir = this.config?.direction!;
     if (this.data.length) {
       this.dataSource.data = this.mappingData(this.data);
@@ -153,7 +160,6 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
 
   mappingData(data: ItemNode[]): ItemNode[] {
     let prop: string = this.config?.propKey || ''
-
     return data.map((el) => {
       return {
         name: el[prop],

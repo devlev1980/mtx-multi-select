@@ -93,6 +93,7 @@ $footerBgGradient: linear-gradient(180deg, #F2F6FF -10.34%, #FFFFFF 100%);
         }
 
         &.expanded {
+
           img {
             transform: rotate(0deg);
           }
@@ -239,6 +240,10 @@ $footerBgGradient: linear-gradient(180deg, #F2F6FF -10.34%, #FFFFFF 100%);
   .mat-icon {
     font-weight: 400 !important;
     font-size: 15px !important;
+
+    &.hide {
+      display: none;
+    }
   }
 
   &.expand {
