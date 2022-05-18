@@ -139,7 +139,7 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
       // TODO: add single checkbox
       this.input.patchValue(this.checkedValues);
 
-      if (this.checkedValues.length >= 3) {
+      if (this.checkedValues.length >= this.config?.maxDisplaySelectedItems!) {
         this.input.patchValue(this.checkedValues.length + ' ' + this.config?.selectedText!)
       }
     });

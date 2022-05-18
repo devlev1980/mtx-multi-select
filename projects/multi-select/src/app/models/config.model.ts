@@ -11,4 +11,5 @@ export interface Config {
   isShowSelectedItemsLabel: boolean;
   isShowFooter: boolean;
   isShowExpandTreeIcons: boolean;
+  maxDisplaySelectedItems: number;
 }

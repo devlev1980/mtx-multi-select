@@ -78,7 +78,8 @@ export class AppComponent implements OnInit {
       propKey: 'name',
       isShowFooter: true,
       isShowSelectedItemsLabel: false,
-      isShowExpandTreeIcons: false
+      isShowExpandTreeIcons: false,
+      maxDisplaySelectedItems: 3
     }
 
     this.input.valueChanges.subscribe(res => {
