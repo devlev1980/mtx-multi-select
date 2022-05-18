@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Config} from './models/config.model';
 import {FormControl} from '@angular/forms';
-import {ItemNode} from './models/item-node.model';
+import {Config, ItemNode} from 'multi-select-lib';
 
 
 @Component({

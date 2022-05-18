@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {ItemFlatNode} from "./models/item-flat-node.model";
+import {ItemFlatNode} from './models/item-flat-node.model';
 
 
 @Pipe({

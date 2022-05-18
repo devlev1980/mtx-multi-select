@@ -1,13 +1,13 @@
 import {Component, ElementRef, Input, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {Config} from '../../models/config.model';
-import {Option} from '../../models/option.model';
+// import {Config} from '../../models/config.model';
+// import {Option} from '../../models/option.model';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {SelectionModel} from '@angular/cdk/collections';
-import {ItemNode} from '../../models/item-node.model';
-import {ItemFlatNode} from '../../models/item-flat-node.model';
-
+// import {ItemNode} from '../../models/item-node.model';
+// import {ItemFlatNode} from '../../models/item-flat-node.model';
+import {Config, ItemFlatNode, ItemNode, Option} from '../../models'
 
 @Component({
   selector: 'mtx-multi-select-tree',
