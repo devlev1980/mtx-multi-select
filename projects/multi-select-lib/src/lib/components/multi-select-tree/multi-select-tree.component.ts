@@ -45,7 +45,7 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
   dataSource: MatTreeFlatDataSource<ItemNode, ItemFlatNode>;
   /** The selection for checklist */
   checklistSelection = new SelectionModel<ItemFlatNode>(true /* multiple */);
-  checkedValues: string[] = [];
+  checkedValues: ItemFlatNode[] = [];
 
   constructor(private elemRef: ElementRef, private renderer: Renderer2) {
     this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
@@ -126,26 +126,24 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
     this.checklistSelection.changed.subscribe((el) => {
       this.checkedValues = this.checklistSelection.selected
         .filter((a) => !a.expandable)
-        .map((el) => el.item)
+        .map((el) => {
+          return this.config?.propKey ? el.item[this.config?.propKey] : ''
+        })
+      // TODO: add single checkbox
       this.input.patchValue(this.checkedValues);
 
-      if (this.checkedValues.length > 3) {
-        this.input.patchValue(this.checkedValues?.length + ' ' + this.config?.selectedText!)
+      if (this.checkedValues.length >= 3) {
+        this.input.patchValue(this.checkedValues.length + ' ' + this.config?.selectedText!)
       }
     });
 
 
     this.input.valueChanges.subscribe(value => {
       const {selected} = this.checklistSelection;
-      let prop: string = this.config?.propKey || ''
       const mappedSelected = selected
-        .filter((el) => !el.expandable)
-        .map((el: any, index) => {
-          return {
-            name: prop ? el[prop] : el,
-            index: index,
-
-          }
+        .filter((a) => !a.expandable)
+        .map((el, index) => {
+          return el.item
         });
       this.change(mappedSelected);
 
@@ -158,7 +156,7 @@ export class MultiSelectTreeComponent implements OnInit, ControlValueAccessor {
 
     return data.map((el) => {
       return {
-        name: el,
+        name: el[prop],
         children: el?.children
       }
 

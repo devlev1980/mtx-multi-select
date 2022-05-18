@@ -152,15 +152,16 @@ $footerBgGradient: linear-gradient(180deg, #F2F6FF -10.34%, #FFFFFF 100%);
         white-space: nowrap;
         padding-inline-start: 10px;
         color: $selectedCountColor;
+        flex: 1;
       }
 
       .actions {
         display: flex;
-        justify-content: flex-end;
+        //justify-content: flex-end;
         align-items: center;
         min-height: 62px;
-        justify-self: flex-end;
-        width: 100%;
+        //justify-self: flex-end;
+        //width: 100%;
       }
 
       button {

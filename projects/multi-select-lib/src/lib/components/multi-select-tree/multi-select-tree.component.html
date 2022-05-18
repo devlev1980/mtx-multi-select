@@ -42,7 +42,8 @@
             *ngIf="this.checklistSelection.selected.length">{{this.checklistSelection.selected | selectedItemsCount}} {{config?.selectedText}} </span>
       <div class="actions">
         <!--        <button mat-raised-button class="primary"  (click)="onAddSelectedOption()" [disabled]="selectedArray?.length === 0">{{config?.addButton}}</button>-->
-        <button mat-raised-button class="accent" (click)="onClearValues()">{{config?.clearValuesButton}}</button>
+        <button mat-raised-button class="accent" (click)="onClearValues()"
+                *ngIf="config?.clearValuesButton">{{config?.clearValuesButton}}</button>
       </div>
     </div>
   </ul>
