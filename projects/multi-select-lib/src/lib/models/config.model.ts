@@ -8,4 +8,6 @@ export interface Config {
   panelClass?: string;
   direction: string;
   propKey: string;
+  isShowSelectedItemsLabel: boolean;
+  isShowFooter: boolean;
 }

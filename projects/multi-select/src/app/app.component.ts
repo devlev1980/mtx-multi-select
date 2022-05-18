@@ -75,7 +75,9 @@ export class AppComponent implements OnInit {
       addButton: 'אישור',
       clearValuesButton: 'ניקוי בחירה',
       direction: 'rtl',
-      propKey: 'name'
+      propKey: 'name',
+      isShowFooter: true,
+      isShowSelectedItemsLabel: false
     }
 
     this.input.valueChanges.subscribe(res => {

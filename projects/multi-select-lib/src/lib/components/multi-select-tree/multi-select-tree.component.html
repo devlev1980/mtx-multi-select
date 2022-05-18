@@ -37,9 +37,9 @@
     </div>
 
 
-    <div class="footer">
+    <div class="footer" *ngIf="config?.isShowFooter">
       <span class="selected_count"
-            *ngIf="this.checklistSelection.selected.length">{{this.checklistSelection.selected | selectedItemsCount}} {{config?.selectedText}} </span>
+            *ngIf="this.checklistSelection.selected.length && config?.isShowSelectedItemsLabel">{{this.checklistSelection.selected | selectedItemsCount}} {{config?.selectedText}} </span>
       <div class="actions">
         <!--        <button mat-raised-button class="primary"  (click)="onAddSelectedOption()" [disabled]="selectedArray?.length === 0">{{config?.addButton}}</button>-->
         <button mat-raised-button class="accent" (click)="onClearValues()"
