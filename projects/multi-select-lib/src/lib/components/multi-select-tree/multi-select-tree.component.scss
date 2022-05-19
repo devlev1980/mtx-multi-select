@@ -117,6 +117,10 @@ $footerBgGradient: linear-gradient(180deg, #F2F6FF -10.34%, #FFFFFF 100%);
     .content {
       max-height: 404px;
       overflow-y: auto;
+
+      &.p-15 {
+        padding-inline-start: 15px;
+      }
     }
 
     li {
@@ -136,6 +140,7 @@ $footerBgGradient: linear-gradient(180deg, #F2F6FF -10.34%, #FFFFFF 100%);
 
       ul {
         padding-inline-start: 0;
+
       }
     }
 
@@ -240,6 +245,7 @@ $footerBgGradient: linear-gradient(180deg, #F2F6FF -10.34%, #FFFFFF 100%);
   .mat-icon {
     font-weight: 400 !important;
     font-size: 15px !important;
+
 
     &.hide {
       display: none;
